@@ -19,17 +19,24 @@ class App extends React.Component {
 
   unsubscribeFromAuth = null
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => { //methods in auth library from firebase //inside is a function where the param is the user state
+    //methods in auth library from firebase //inside is a function where the param is the user state
+    //if there is a change of state (user signed in)
+    this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => { 
       if(userAuth) {
-        const userRef = await createUserProfileDocument(userAuth)
+        //if userAuth has obj returned, use createUserProfileDocument we imported from firebase util
+        const userRef = await createUserProfileDocument(userAuth) // createUserProfileDocument always return an object -> this will be stored under const userRef
 
+        
+        //send snapShot object of the data that is currently in our database
         userRef.onSnapshot(snapShot => {
+          //updated current user state based on snapShot object
           this.setState({
             id: snapShot.id,
-            ...snapShot.data() 
+            ...snapShot.data() //we need to use .data() to see the data under the snapShot obj
           })
         })
       }
+      //updated current user state
       this.setState({ currentUser: userAuth })
     })            
   }

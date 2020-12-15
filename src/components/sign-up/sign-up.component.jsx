@@ -28,10 +28,14 @@ class SignUp extends React.Component {
         }
 
         try {
-            const { user } = await auth.createUserWithEmailAndPassword(email, password)
+            // createUserWithEmailAndPassword create a new user account specific the the email and password
+            // we are going to deconstruct user from the await
+            const { user } = await auth.createUserWithEmailAndPassword(email, password) 
 
+            //once we get the { user }, we will pass it to createUserProfileDocument to create data in database
             await createUserProfileDocument(user, { displayName })
 
+            //setting current user state to initial state which is empty
             this.setState({
                 displayName: '',
                 email: '',
@@ -47,6 +51,7 @@ class SignUp extends React.Component {
         const { name, value } = event.target
         this.setState({[name]: value})
     }
+    
     render(){
         const {displayName, email, password, confirmPassword } = this.state
         return(
