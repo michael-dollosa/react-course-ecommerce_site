@@ -11,6 +11,8 @@
 
 //since when component first mounts, the state in our reducer will be null. so we need to initialize it first
 //we create an object to initialize state and give it a initial value under userReducer
+
+import { UserActionTypes } from './user.types'
 const INITIAL_STATE = {
     currentUser:null
 }
@@ -19,7 +21,7 @@ const INITIAL_STATE = {
 const userReducer = (state = INITIAL_STATE, action)  => {
     //we need a switch statement so we can setup the action of the function based on action
     switch(action.type) {
-        case 'SET_CURRENT_USER':
+        case UserActionTypes.SET_CURRENT_USER:
             return {
                 ...state,
                 currentUser: action.payload
