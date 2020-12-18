@@ -1,5 +1,5 @@
 import { CartActionTypes } from './cart.types'
-import { addItemToCart } from './cart.utils'
+import { addItemToCart, decreaseItemCount } from './cart.utils'
 
 const INITIAL_STATE = {
     hidden: true,
@@ -17,6 +17,18 @@ const cartReducer = (state = INITIAL_STATE, action) => {
             return{
                 ...state,
                 cartItems: addItemToCart(state.cartItems, action.payload) //using addItemToCart from utils js
+            }
+        case CartActionTypes.CLEAR_ITEM_FROM_CART:
+            return {
+                ...state,
+                cartItems: state.cartItems.filter(
+                    cartItem => cartItem.id !== action.payload.id //it just means that if action.payload (the specific cart Item) is not in current cart state, then return true
+                )
+            }
+        case CartActionTypes.DECREASE_ITEM_COUNT:
+            return{
+                ...state,
+                cartItems: decreaseItemCount(state.cartItems, action.payload)
             }
         default:
             return state

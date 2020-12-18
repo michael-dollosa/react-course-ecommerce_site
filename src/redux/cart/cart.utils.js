@@ -25,3 +25,15 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
     //if cartItem is not found in the array
     return [...cartItems, {...cartItemToAdd, quantity: 1 }] // pushing the new item to the array (state) with the quantity of 1
 }
+
+export const decreaseItemCount = (cartItems, cartItemToggled) => {
+    return cartItems.map(cartItem => {
+        if (cartItem.id === cartItemToggled.id) {
+            if(cartItem.quantity > 1) return {...cartItem, quantity: cartItem.quantity - 1}
+            else return cartItem
+        }
+        else {
+            return cartItem
+        }
+    })
+}
