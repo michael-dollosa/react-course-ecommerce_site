@@ -8,7 +8,6 @@ const selectCart = state => state.cart
 export const selectCartItems = createSelector( //since we used createSelector, it is now eh memoized selector
     [selectCart], //collection of input selectors
     cart => {
-        console.log('carItem console log', cart.cartItems)
         return cart.cartItems
     } //function that will return the value we want out of the selector
 )
